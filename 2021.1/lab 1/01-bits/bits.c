@@ -20,9 +20,13 @@
  *      - As resoluções com menos operações do que a do monitor terão bonificação.
  *
  * Assinatura:
- *      Aluno: <nome>
- *      DRE: <DRE>
- *      versão do GCC utilizada: XXXX
+ *      Aluno: Pedro Paulo Moussa de Medeiros
+ *      DRE: 119181709
+ * 
+ *      Aluno: Marcus Vinícius Torres de Oliveira
+ *      DRE: 118142223
+ * 
+ *      versão do GCC utilizada: 9.3.0
  *
  */
 
@@ -86,7 +90,12 @@ int32_t mod8(int32_t x) {
  *          negativo(42) -> -42
  */
 int32_t negativo(int32_t x) {
-    return -1;
+    /*
+    para transformar o numero em negativo sem '-', usamos
+    o complemento a dois do numero, que é representado por
+    inverter os 0s e 1s e somar 1
+    */
+    return (~x + 1); 
 }
 
 /* Implementação do & usando bitwise
@@ -105,7 +114,17 @@ int32_t negativo(int32_t x) {
  *              11 & 1011 -> 0011
  */
 int32_t bitwiseAnd(int32_t x, int32_t y) {
-    return -1;
+    /*
+    pegamos a negaçao de x e de y e fazemos o OR entre os dois
+    depois negamos o resultado novamente
+    essa ultima operaçao é para cuidar do caso onde ambos sao iguais
+    então, se:
+    x = 0 e y = 0, pegamos 1 OU 1 = 1 e negamos, dando 0
+    x = 1 e y = 0, pegamos 0 OU 1 = 1 e negamos, dando 0
+    x = 0 e y = 1, pegamos 1 OU 0 = 1 e negamos, dando 0
+    x = 1 e y = 1, pegamos 0 OU 0 = 0 e negamos, dando 1
+    */
+    return (~(~x | ~y));
 }
 
 /* Igual sem ==
@@ -122,7 +141,12 @@ int32_t bitwiseAnd(int32_t x, int32_t y) {
  *          ehIgual(16, 8) -> 0
  */
 int32_t ehIgual(int32_t x, int32_t y) {
-    return -1;
+    /*
+    o XOR (^) retorna 1 quando os valores comparados sao
+    diferentes e 0 se forem iguais, entao a negacao do
+    XOR retornara 1 quando forem iguais e 0 quando diferentes
+    */
+    return !(x ^ y);
 }
 
 /* Limpa bit n
@@ -140,7 +164,14 @@ int32_t ehIgual(int32_t x, int32_t y) {
  *          limpaBitN(3, 1) -> 1
  */
 int32_t limpaBitN(int32_t x, int8_t n) {
-    return -1;
+    int32_t y = ~(1 << n);  //coloca o bit 1 na posicao n e depois inverte y
+    /*
+    agora todos os bits de y, com excessao do bit n, sao 1
+    logo um AND com x faz com que os bits de x continuem em
+    1 ou 0 (pois 1 & 1 = 1, e 0 & 1 = 0), mas o bit na posicao
+    n será 0 (1 & 0 = 0, 0 & 0 = 0)
+    */
+    return x & y;
 }
 
 /*
