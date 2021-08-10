@@ -54,7 +54,15 @@
  *          ehPar(7) -> 0
  */
 int32_t ehPar(int32_t x) {
-    return -1;
+    /*
+    AND com 1, entao todos os bits exceto o lsb
+    ficam em 0, sendo que o lsb será 0 no caso de x ser par
+    depois disso, XOR tambem com 1 que retorna 0 quando os
+    numeros sao iguais e 1 quando sao diferentes, entao,
+    se lsb de x = 1 (impar), XOR retorna 0, e se lsb de x = 0
+    (par), XOR retorna 1
+    */
+    return ((x & 1) ^ 1);
 }
 
 /*
